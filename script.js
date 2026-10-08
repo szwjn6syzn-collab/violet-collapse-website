@@ -48,8 +48,9 @@ function addToCart(event) {
   const product = event.currentTarget.closest(".product");
   const name = product.dataset.name;
   const price = Number(product.dataset.price);
+  const checkoutUrl = product.dataset.checkout;
 
-  cart.push({ name, price });
+  cart.push({ name, price, checkoutUrl });
   renderCart();
 }
 
@@ -65,114 +66,15 @@ checkoutForm.addEventListener("submit", (event) => {
     return;
   }
 
-  alert("Payment approved. Thanks for supporting Violet Collapse!");
-  cart.length = 0;
-  renderCart();
-  checkoutForm.reset();
+  // Get the first item's checkout URL (redirect to Stripe)
+  const checkoutUrl = cart[0].checkoutUrl;
+  
+  if (checkoutUrl) {
+    // Redirect to Stripe checkout
+    window.location.href = checkoutUrl;
+  } else {
+    alert("Error: Checkout link not found.");
+  }
 });
 
 renderCart();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
